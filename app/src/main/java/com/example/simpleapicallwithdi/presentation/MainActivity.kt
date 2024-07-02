@@ -109,7 +109,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         )
 
         IconButton(onClick = {
-//            code = ""
+            code = ""
             launcher.launch(Manifest.permission.CAMERA)
         }) {
             Icon(
@@ -131,10 +131,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxWidth()
         )
 
-        /*Column(
+    }
+
+    if (hasCamPermission && code.isBlank()) {
+        Column(
             modifier = Modifier.fillMaxSize()
-        ) {*/
-        if (hasCamPermission/* && code.isBlank()*/) {
+        ) {
             AndroidView(
                 factory = { context ->
                     val previewView = PreviewView(context)
@@ -181,7 +183,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .padding(32.dp)
             )
         }
-//        }
     }
 }
 
