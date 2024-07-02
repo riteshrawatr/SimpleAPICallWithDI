@@ -8,20 +8,16 @@ import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
@@ -73,7 +69,7 @@ class MainViewModelTest {
 
                 viewModel = MainViewModel(getQuoteUseCase)
                 viewModel.getQuotes()
-                val state = viewModel.state.first()
+                val state = viewModel.state1.first()
                 assert(state.isLoading.not() && state.apiError.isEmpty())
             }
         }
@@ -89,7 +85,7 @@ class MainViewModelTest {
 
                 viewModel = MainViewModel(getQuoteUseCase)
                 viewModel.getQuotes()
-                val state = viewModel.state.first()
+                val state = viewModel.state1.first()
                 assert(state.isLoading.not() && state.apiError.isEmpty())
             }
         }
@@ -107,7 +103,7 @@ class MainViewModelTest {
                 )
                 val viewModel = MainViewModel(getQuoteUseCase)
                 viewModel.getQuotes()
-                val state = viewModel.state.drop(1).first()
+                val state = viewModel.state1.drop(1).first()
                 assert(state.apiError == error)
             }
         }
@@ -124,7 +120,7 @@ class MainViewModelTest {
 
             val viewModel = MainViewModel(getQuoteUseCase)
             viewModel.getQuotes()
-            val state = viewModel.state.drop(1).first()
+            val state = viewModel.state1.drop(1).first()
             assert(state.data == mockQuoteData)
         }
     }
