@@ -23,6 +23,8 @@ class MainViewModel @Inject constructor(
     private val getQuoteUseCase: GetQuoteUseCase,
     private val postSearchUseCase: PostSearchUseCase
 ) : ViewModel() {
+    var code = ""
+
     private val _state1 = MutableStateFlow(QuoteState())
     val state1: StateFlow<QuoteState> get() = _state1
 

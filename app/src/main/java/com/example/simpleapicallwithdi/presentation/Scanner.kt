@@ -30,9 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun Scanner() {
+fun Scanner(vm: MainViewModel= hiltViewModel()/*, navController: NavHostController*/) {
     var code by remember {
         mutableStateOf("")
     }
@@ -83,6 +88,7 @@ fun Scanner() {
                         ContextCompat.getMainExecutor(context),
                         QrCodeAnalyzer { result ->
                             code = result
+                            vm.code = result
                         }
                     )
                     try {
